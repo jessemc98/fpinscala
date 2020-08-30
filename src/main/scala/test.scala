@@ -35,8 +35,7 @@ object MyModule {
   def curry[A,B,C](f: (A, B) => C): A => B => C =
     a => b => f(a,b)
 
-  def uncurry[A,B,C](f: A => B => C): (A, B) => C =
-    (a, b) => f(a)(b)
+  def uncurry[A,B,C](f: A => B => C): (A, B) => C = f(_)(_)
 
   private def formatAbs(x: Int) = {
     val msg = "The absolute value of %d is %d"
@@ -48,6 +47,8 @@ object MyModule {
   }
 
   def main(args: Array[String]): Unit = {
+    println(curry((x: Int, y: Int) => x + y)(1)(3))
+    println(uncurry((x: Int) => (y: Int) => x + y)(1,3))
     println(isSorted(Array(1,2,4,3), (x: Int, y: Int) => x <= y))
   }
 
