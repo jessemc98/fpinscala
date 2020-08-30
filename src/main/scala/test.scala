@@ -23,24 +23,25 @@ object MyModule {
 
     go(n, 0, 1)
   }
+  
+  def isSorted[A](as: Array[A], ordered: (A,A) => Boolean): Boolean = {
+    def loop(i: Int): Boolean =
+      if (i + 1 >= as.length) true
+      else if (ordered(as(i), as(i + 1))) loop(i + 1)
+      else false
+    loop(0)
+  }
 
   private def formatAbs(x: Int) = {
     val msg = "The absolute value of %d is %d"
     msg.format(x, abs(x))
   }
-  private def formatX(fn: Int => Int, name: String, x: Int) = {
+  private def formatResult(fn: Int => Int, name: String, x: Int) = {
     val msg = "The %s of %d is %d"
     msg.format(name, x, fn(x))
   }
 
   def main(args: Array[String]): Unit = {
-    @annotation.tailrec
-    def go(x: Int): Unit =
-      if (x >= 0) {
-        println(formatX(fib, "fib", x))
-        go(x - 1)
-      }
-
-    go(10)
+    println(isSorted(Array(1,2,4,3), (x: Int, y: Int) => x <= y))
   }
 }
