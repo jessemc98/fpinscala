@@ -32,6 +32,9 @@ object MyModule {
     loop(0)
   }
 
+  def curry[A,B,C](f: (A, B) => C): A => (B => C) =
+    (a) => b => f(a,b)
+
   private def formatAbs(x: Int) = {
     val msg = "The absolute value of %d is %d"
     msg.format(x, abs(x))
@@ -44,4 +47,5 @@ object MyModule {
   def main(args: Array[String]): Unit = {
     println(isSorted(Array(1,2,4,3), (x: Int, y: Int) => x <= y))
   }
+
 }
