@@ -37,6 +37,9 @@ object MyModule {
 
   def uncurry[A,B,C](f: A => B => C): (A, B) => C = f(_)(_)
 
+  def compose[A,B,C](f: B => C, g: A => B): A => C =
+    a => f(g(a))
+
   private def formatAbs(x: Int) = {
     val msg = "The absolute value of %d is %d"
     msg.format(x, abs(x))
