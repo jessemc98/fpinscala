@@ -29,11 +29,20 @@ object List {
         }
         else l
 
+    @annotation.tailrec
     def dropWhile[A](l: List[A], f: A => Boolean): List[A] = l match {
         case Nil => Nil
         case Cons(a, as) => {
             if (f(a)) dropWhile(as, f)
             else l
+        }
+    }
+
+    def init[A](l: List[A]): List[A] = {
+        l match {
+            case Nil => Nil
+            case Cons(_, Nil) => Nil
+            case Cons(x, xs) => Cons(x, init(xs))
         }
     }
 
