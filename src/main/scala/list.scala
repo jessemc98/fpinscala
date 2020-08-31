@@ -20,6 +20,14 @@ object List {
         case Nil => Nil
         case Cons(_, t) => t
     }
+    
+    @annotation.tailrec
+    def drop[A](l: List[A], n: Int): List[A] = 
+        if (n > 0) l match {
+            case Nil => Nil
+            case Cons(_, t) => drop(t, n - 1)
+        }
+        else l
 
     def setHead[A](a: A, as: List[A]): List[A] = as match {
         case Nil => Cons(a, Nil)
