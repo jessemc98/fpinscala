@@ -21,6 +21,12 @@ object List {
         case Cons(h, t) => foldLeft(t, f(z, h))(f)
     }
 
+    def foldRightUsingFoldLeft[A,B](as: List[A], z: B)(f: (A, B) => B): B =
+        foldLeft(reverse(as), z)((b, a) => f(a, b))
+
+    def foldLeftUsingFoldRight[A,B](as: List[A], z: B)(f: (B,A) => B): B =
+        foldRight(as, (b:B) => b)((a,g) => b => g(f(b,a)))(z)
+
     def length[A](as: List[A]): Int =
         foldRight(as, 0)((_, len) => len + 1)
 
