@@ -30,12 +30,18 @@ object List {
     def product2(ns: List[Double]) =
         foldRight(ns, 1.0)(_ * _)
 
+    def lengthLeft[A](as: List[A]): Int = 
+        foldLeft(as, 0)((x, _) => x + 1)
+
     def sum2Left(ns: List[Int]) =
         foldLeft(ns, 0)(_ + _)
 
     def product2Left(ns: List[Double]) =
         foldLeft(ns, 1.0)(_ * _)
     
+    def reverse[A](as: List[A]) = 
+        foldLeft(as, Nil: List[A])((a, b) => Cons(b, a))
+
     def sum(ints: List[Int]): Int = ints match {
         case Nil => 0
         case Cons(x,xs) => x + sum(xs)
