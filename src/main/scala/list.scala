@@ -30,6 +30,12 @@ object List {
     def map[A,B](as: List[A])(f: A => B): List[B] =
         foldRight(as, Nil: List[B])((h,t) => Cons(f(h), t))
 
+    def filter[A](as: List[A])(p: A => Boolean): List[A] =
+        foldRight(as, Nil: List[A])((h,t) => 
+            if (p(h)) Cons(h, t)
+            else t
+        )
+
     @annotation.tailrec
     def foldLeft[A,B](as: List[A], z: B)(f: (B, A) => B): B = as match {
         case Nil => z
