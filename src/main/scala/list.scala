@@ -39,6 +39,12 @@ object List {
     def flatMap[A,B](as: List[A])(f: A => List[B]): List[B] =
         flatten(map(as)(f))
 
+    def filterUsingFlatMap[A](as: List[A])(p: A => Boolean): List[A] =
+        flatMap(as)(x => 
+            if (p(x)) List(x)
+            else Nil: List[A]
+        )
+
     @annotation.tailrec
     def foldLeft[A,B](as: List[A], z: B)(f: (B, A) => B): B = as match {
         case Nil => z
