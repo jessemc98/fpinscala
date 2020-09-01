@@ -10,8 +10,11 @@ object List {
         case Cons(h, t) => Cons(h, append(t, bs))
     }
 
-    def appendUsingFold[A](as: List[A], bs: List[A]): List[A] =
-        foldLeft(as, bs)((t,h) => Cons(h, t))
+    def appendUsingFoldRight[A](as: List[A], bs: List[A]): List[A] =
+        foldRight(as, bs)(Cons(_,_))
+
+    def flatten[A](as: List[List[A]]): List[A] =
+        foldLeft(as, Nil: List[A])((t, h) => appendUsingFoldRight(h, t))
 
     def foldRight[A,B](as: List[A], z: B)(f: (A, B) => B): B = as match {
         case Nil => z
