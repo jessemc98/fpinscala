@@ -50,6 +50,28 @@ object List {
         case (Nil,_) => Nil
         case (Cons(h1,t1), Cons(h2,t2)) => Cons(h1+h2, mergeInts(t1,t2))
     }
+    def zipWith[A,B,C](as: List[A], bs: List[B])(f: (A,B) => C): List[C] = (as,bs) match {
+        case (_,Nil) => Nil
+        case (Nil,_) => Nil
+        case (Cons(h1,t1), Cons(h2,t2)) => Cons(f(h1,h2), zipWith(t1,t2)(f))
+    }
+
+    def hasSubsequence[A](sup: List[A], sub: List[A]): Boolean = {
+        def startsWith(sup: List[A], sub: List[A]): Boolean = {
+            (sup, sub) match {
+                case (_,Nil) => true
+                case (Nil,_) => false
+                case (Cons(h1,t1), Cons(h2,t2)) if (h1 == h2) => startsWith(t1,t2) 
+                case _ => false
+            }
+        }
+
+        sup match {
+            case Nil => sub == Nil
+            case _ if startsWith(sup, sub) => true
+            case Cons(h,t) => hasSubsequence(t, sub)
+        }
+    }
 
     @annotation.tailrec
     def foldLeft[A,B](as: List[A], z: B)(f: (B, A) => B): B = as match {
