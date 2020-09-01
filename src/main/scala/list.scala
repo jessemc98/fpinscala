@@ -24,6 +24,9 @@ object List {
     def increment(ints: List[Int]): List[Int] =
         foldRight(ints, Nil: List[Int])((h,t) => Cons(h+1, t))
 
+    def doubleToString(ds: List[Double]): List[String] =
+        foldRight(ds, Nil: List[String])((h,t) => Cons(h.toString(), t))
+
     @annotation.tailrec
     def foldLeft[A,B](as: List[A], z: B)(f: (B, A) => B): B = as match {
         case Nil => z
