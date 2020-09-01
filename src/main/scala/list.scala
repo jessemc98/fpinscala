@@ -21,6 +21,9 @@ object List {
         case Cons(x, xs) => f(x, foldRight(xs, z)(f))
     }
 
+    def increment(ints: List[Int]): List[Int] =
+        foldRight(ints, Nil: List[Int])((h,t) => Cons(h+1, t))
+
     @annotation.tailrec
     def foldLeft[A,B](as: List[A], z: B)(f: (B, A) => B): B = as match {
         case Nil => z
