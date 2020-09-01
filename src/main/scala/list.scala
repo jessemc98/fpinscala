@@ -27,6 +27,9 @@ object List {
     def doubleToString(ds: List[Double]): List[String] =
         foldRight(ds, Nil: List[String])((h,t) => Cons(h.toString(), t))
 
+    def map[A,B](as: List[A])(f: A => B): List[B] =
+        foldRight(as, Nil: List[B])((h,t) => Cons(f(h), t))
+
     @annotation.tailrec
     def foldLeft[A,B](as: List[A], z: B)(f: (B, A) => B): B = as match {
         case Nil => z
