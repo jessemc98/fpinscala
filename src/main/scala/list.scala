@@ -44,6 +44,12 @@ object List {
             if (p(x)) List(x)
             else Nil: List[A]
         )
+    
+    def mergeInts(as: List[Int], bs: List[Int]): List[Int] = (as,bs) match {
+        case (_,Nil) => Nil
+        case (Nil,_) => Nil
+        case (Cons(h1,t1), Cons(h2,t2)) => Cons(h1+h2, mergeInts(t1,t2))
+    }
 
     @annotation.tailrec
     def foldLeft[A,B](as: List[A], z: B)(f: (B, A) => B): B = as match {
