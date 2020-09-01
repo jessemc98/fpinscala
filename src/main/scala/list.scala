@@ -14,7 +14,7 @@ object List {
         foldRight(as, bs)(Cons(_,_))
 
     def flatten[A](as: List[List[A]]): List[A] =
-        foldLeft(as, Nil: List[A])((t, h) => appendUsingFoldRight(h, t))
+        foldRight(as, Nil: List[A])(appendUsingFoldRight(_, _))
 
     def foldRight[A,B](as: List[A], z: B)(f: (A, B) => B): B = as match {
         case Nil => z
@@ -35,6 +35,9 @@ object List {
             if (p(h)) Cons(h, t)
             else t
         )
+
+    def flatMap[A,B](as: List[A])(f: A => List[B]): List[B] =
+        flatten(map(as)(f))
 
     @annotation.tailrec
     def foldLeft[A,B](as: List[A], z: B)(f: (B, A) => B): B = as match {
